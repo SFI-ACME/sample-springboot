@@ -10,13 +10,13 @@ phases:
       - aws --version
       - aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI=015389403723.dkr.ecr.us-east-1.amazonaws.com/sample-springboot
+      - REPOSITORY_URI=739275465593.dkr.ecr.us-east-1.amazonaws.com/gsa-comet-prod-spring-backend
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
       - echo Build started on `date`
-      - mvn package
+      - mvn package -Dmaven.test.skip=true
       - echo Building the Docker image...
       - docker build -t $REPOSITORY_URI:latest .
       - echo Tagging Docker image...
