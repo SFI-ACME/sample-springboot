@@ -1,14 +1,14 @@
 version: 0.0
 os: linux
 files:
-  - source: aws_ecr://739275465593.dkr.ecr.us-east-1.amazonaws.com/gsa-comet-prod-spring-backend:a571ee2
-    destination: /opt/app
+  - source: ./scripts
+    destination: /opt/app/scripts
     permissions:
       - owner: root
         group: root
         mode: "0755"
 hooks:
   AfterInstall:
-    - location: /opt/app/start.sh
+    - location: scripts/deploy_container.sh
       timeout: 300
       runas: root
