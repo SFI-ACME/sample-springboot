@@ -27,8 +27,8 @@ if [ "$(docker ps -aq -f name=spring-app)" ]; then
 fi
 
 # 5. Remove the old image if it exists (ignore errors with "|| true")
-echo "Removing old image: $FULL_IMAGE"
-docker rmi -f "$FULL_IMAGE" || true
+# echo "Removing old image: $FULL_IMAGE"
+# docker rmi -f "$FULL_IMAGE" || true
 
 # 6. Pull the new image from ECR
 echo "Pulling image: $FULL_IMAGE"
