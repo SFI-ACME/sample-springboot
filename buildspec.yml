@@ -39,6 +39,11 @@ phases:
     commands:
       - echo "Fetching AWS Account ID..."
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+      - echo Logging in to Amazon ECR...
+      - echo $AWS_DEFAULT_REGION
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo $REPOSITORY_URI
+      - aws --version
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
       - REPOSITORY_URI="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/gsa-comet-prod-spring-backend"
@@ -48,7 +53,7 @@ phases:
       - echo "Build started on $(date)"
       - mvn package -Dmaven.test.skip=true
       - echo "Building Docker image with :latest tag..."
-      - docker build -t "$REPOSITORY_URI:latest" .
+      - docker build --platform=linux/amd64 -t "$REPOSITORY_URI:latest" .
 
   post_build:
     commands:
