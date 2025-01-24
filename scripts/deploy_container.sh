@@ -4,7 +4,6 @@
 # docker run -d --name spring-app -p 8080:8080 "$AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/gsa-comet-prod-spring-backend:a571ee2"
 
 # Exit immediately if a command exits with a non-zero status
-
 # 1. Export AWS_ACCOUNT_ID (if not already set)
 echo "Fetching AWS account ID..."
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
