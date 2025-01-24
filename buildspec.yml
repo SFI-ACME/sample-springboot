@@ -53,7 +53,7 @@ phases:
       - echo "Build started on $(date)"
       - mvn package -Dmaven.test.skip=true
       - echo "Building Docker image with :latest tag..."
-      - docker build --platform=linux/amd64 -t "$REPOSITORY_URI:latest" .
+      - docker build -t "$REPOSITORY_URI:latest" .
 
   post_build:
     commands:
